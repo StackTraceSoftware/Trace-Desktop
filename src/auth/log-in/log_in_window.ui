@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>LogIn</class>
- <widget class="QDialog" name="LogIn">
+ <widget class="QDialog" name="LogInWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -149,7 +149,6 @@ QLineEdit:focus {
       <family>Poppins</family>
       <pointsize>-1</pointsize>
       <kerning>true</kerning>
-      <fontweight>Medium</fontweight>
      </font>
     </property>
     <property name="styleSheet">
@@ -179,7 +178,6 @@ QLineEdit:focus {
      <font>
       <family>Poppins</family>
       <pointsize>-1</pointsize>
-      <fontweight>Medium</fontweight>
      </font>
     </property>
     <property name="styleSheet">
@@ -315,7 +313,6 @@ QPushButton:hover {
      <font>
       <family>Poppins</family>
       <pointsize>-1</pointsize>
-      <fontweight>Medium</fontweight>
      </font>
     </property>
     <property name="styleSheet">

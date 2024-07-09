@@ -1,6 +1,6 @@
 #include "auth.h"
-#include "log_in.h"
-#include "registration.h"
+#include "log-in/log_in.h"
+#include "registration/registration.h"
 
 Auth::Auth()
 {
