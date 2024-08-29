@@ -1,5 +1,5 @@
 //
-// Created by Nik Menshikov on 25.08.2024.
+// Created by Nick Menshikov on 25.08.2024.
 //
 
 #ifndef CONFIG_UTILS_H

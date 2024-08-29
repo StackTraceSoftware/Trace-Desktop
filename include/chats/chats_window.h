@@ -2,6 +2,7 @@
 #define CHATSWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets/qlistwidget.h>
 
 namespace Ui {
 class ChatsWindow;
@@ -14,6 +15,13 @@ class ChatsWindow : public QMainWindow
 public:
     explicit ChatsWindow(QWidget *parent = nullptr);
     ~ChatsWindow() override;
+
+    void on_chat_selected(const QListWidgetItem *item) const;
+
+    void on_message_send() const;
+
+    void add_message(const QString &message, bool isUserMessage) const;
+
 
 private:
     Ui::ChatsWindow *ui;

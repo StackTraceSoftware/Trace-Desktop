@@ -3,8 +3,10 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <ui_chats_window.h>
 #include <boost/property_tree/ptree.hpp>
 
+#include "chats/chats_window.h"
 #include "utils/config_utils.h"
 
 RegistrationWindow::RegistrationWindow(QWidget *parent)
@@ -23,26 +25,39 @@ RegistrationWindow::~RegistrationWindow()
 
 void RegistrationWindow::on_sign_up_button_clicked()
 {
-    const QString username = ui->login_input_field->text();
-    const QString password = ui->password_input_field->text();
+    try {
+        ui->sign_up_button->setText("Loading...");
+        const QString username = ui->login_input_field->text();
+        const QString password = ui->password_input_field->text();
 
-    if (username.isEmpty() || password.isEmpty()) {
-        showCustomWarning(this, "Registration Error", "Please fill in all fields.");
-    } else {
-        QJsonObject json;
-        json["username"] = username;
-        json["password"] = password;
+        if (username.isEmpty() || password.isEmpty()) {
+            showCustomWarning(this, "Registration Error", "Please fill in all fields.");
+            ui->sign_up_button->setText("Sign Up");
+        } else {
+            QJsonObject json;
+            json["username"] = username;
+            json["password"] = password;
 
-        const QJsonDocument jsonDoc(json);
-        const QByteArray jsonData = jsonDoc.toJson();
+            const QJsonDocument jsonDoc(json);
+            const QByteArray jsonData = jsonDoc.toJson();
 
-        const QString server_url = config::get_server_url("config.ini");
+            const QString server_url = config::get_server_url("config.ini");
 
-        const QUrl url(server_url + "/api/v1/create/sign-up");
-        QNetworkRequest request(url);
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+            const QUrl url(server_url + "/api/v1/create");
+            QNetworkRequest request(url);
+            request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-        networkManager->post(request, jsonData);
+            if (const QNetworkReply* reply = networkManager->post(request, jsonData); reply->error() == QNetworkReply::NoError) {
+                this->hide();
+                const auto chat_window = new ChatsWindow();
+                chat_window->show();
+            } else {
+                showCustomWarning(this, "Registration Error", "Something went wrong.");
+            }
+        }
+    } catch (const std::exception &e) {
+        showCustomWarning(this, "Registration Error", e.what());
+        ui->sign_up_button->setText("Sign Up");
     }
 }
 
