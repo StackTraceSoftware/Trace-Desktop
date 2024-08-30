@@ -32,7 +32,5 @@ private slots:
 private:
     Ui::RegistrationWindow *ui;
     QNetworkAccessManager *networkManager;
-
-    static void showCustomWarning(QWidget *parent, const QString &title, const QString &message);
 };
 #endif

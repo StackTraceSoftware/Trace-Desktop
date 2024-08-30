@@ -33,9 +33,13 @@ set(SOURCES
         ui_forms/chats_window.ui
         include/chats/chats_window.h
         src/chats/chats_window.cpp
+        include/utils/custom_windows.h
+        utils/custom_windows.cpp
 )
 
-set(RESOURCE_FILES resources.qrc)
+set(RESOURCE_FILES
+        resources.qrc
+)
 
 
 add_executable(

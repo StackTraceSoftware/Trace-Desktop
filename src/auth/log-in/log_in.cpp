@@ -1,6 +1,6 @@
 #include "./ui_log_in_window.h"
 #include "auth/log-in/log_in.h"
-
+#include "utils/custom_windows.h"
 #include <QMessageBox>
 #include <ui_chats_window.h>
 
@@ -29,7 +29,7 @@ void LogInWindow::on_sign_up_button_clicked()
 
 void LogInWindow::on_log_in_button_clicked()
 {
-    QMessageBox::information(this, tr("Logging in"), tr("Logging in"));
+    ok::show_custom_ok(this, tr("Logging in"), tr("Logging in"));
     this->close();
     const auto chat_window = new ChatsWindow();
     chat_window->show();

@@ -1,4 +1,7 @@
 #include "chats/chats_window.h"
+
+#include <QtWidgets/QLabel>
+
 #include "ui_chats_window.h"
 
 ChatsWindow::ChatsWindow(QWidget *parent)
@@ -6,8 +9,7 @@ ChatsWindow::ChatsWindow(QWidget *parent)
     , ui(new Ui::ChatsWindow)
 {
     ui->setupUi(this);
-
-    ui->list_of_chats->addItem("Saved Messages");
+    addItemWithSeparator(ui->list_of_chats, "Saved Messages");
 
     [[maybe_unused]] auto selected_chat_conn = connect(ui->list_of_chats, &QListWidget::itemClicked, this,
                                                        &ChatsWindow::on_chat_selected);
@@ -51,4 +53,26 @@ void ChatsWindow::add_message(const QString &message, bool isUserMessage) const
     }
 
     ui->current_chat->addItem(item);
+}
+
+void ChatsWindow::addItemWithSeparator(QListWidget *listWidget, const QString &text)
+{
+    auto *item = new QListWidgetItem();
+    item->setSizeHint(QSize(200, 50)); // Размер виджета
+
+    auto *widget = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout(widget);
+    QLabel *label = new QLabel(text);
+    layout->addWidget(label);
+
+    QFrame *separator = new QFrame();
+    separator->setFrameShape(QFrame::HLine);
+    separator->setFrameShadow(QFrame::Sunken);
+    separator->setStyleSheet("background-color: grey;");
+    layout->addWidget(separator);
+
+    widget->setLayout(layout);
+
+    listWidget->addItem(item);
+    listWidget->setItemWidget(item, widget);
 }

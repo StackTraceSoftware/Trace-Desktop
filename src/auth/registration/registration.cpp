@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <ui_chats_window.h>
 #include <boost/property_tree/ptree.hpp>
+#include "utils/custom_windows.h"
 
 #include "chats/chats_window.h"
 #include "utils/config_utils.h"
@@ -31,7 +32,7 @@ void RegistrationWindow::on_sign_up_button_clicked()
         const QString password = ui->password_input_field->text();
 
         if (username.isEmpty() || password.isEmpty()) {
-            showCustomWarning(this, "Registration Error", "Please fill in all fields.");
+            warning::show_custom_warning(this, "Registration Error", "Please fill in all fields.");
             ui->sign_up_button->setText("Sign Up");
         } else {
             QJsonObject json;
@@ -52,11 +53,11 @@ void RegistrationWindow::on_sign_up_button_clicked()
                 const auto chat_window = new ChatsWindow();
                 chat_window->show();
             } else {
-                showCustomWarning(this, "Registration Error", "Something went wrong.");
+                warning::show_custom_warning(this, "Registration Error", "Something went wrong.");
             }
         }
     } catch (const std::exception &e) {
-        showCustomWarning(this, "Registration Error", e.what());
+        warning::show_custom_warning(this, "Registration Error", e.what());
         ui->sign_up_button->setText("Sign Up");
     }
 }
@@ -75,21 +76,4 @@ void RegistrationWindow::onNetworkReply(QNetworkReply *reply)
 void RegistrationWindow::on_log_in_button_clicked()
 {
     emit log_in_button_clicked();
-}
-
-void RegistrationWindow::showCustomWarning(QWidget *parent, const QString &title, const QString &message)
-{
-    QMessageBox messageBox(parent);
-    messageBox.setWindowTitle(title);
-    messageBox.setText(message);
-
-    messageBox.setIcon(QMessageBox::Warning);
-    config::load_styles(messageBox, "custom_error.qss");
-
-    QPushButton *okButton = messageBox.addButton(QMessageBox::Ok);
-    okButton->setFixedSize(70, 40);
-    okButton->setCursor(QCursor(Qt::PointingHandCursor));
-
-
-    messageBox.exec();
 }

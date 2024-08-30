@@ -13,6 +13,8 @@ class ChatsWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    static void addItemWithSeparator(QListWidget *listWidget, const QString &text);
+
     explicit ChatsWindow(QWidget *parent = nullptr);
     ~ChatsWindow() override;
 
