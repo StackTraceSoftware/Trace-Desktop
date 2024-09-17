@@ -102,6 +102,27 @@ background-color: rgb(40, 39, 46);
            <string notr="true">QListWidget
 {
 	background-color: rgb(66, 65, 75)
+}
+
+QScrollBar:vertical {
+    background: rgb(40, 39, 46);
+    width: 15px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #A0A0A0;
+    min-height: 20px;
+    border-radius: 7px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background: none;
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
 }</string>
           </property>
          </widget>
