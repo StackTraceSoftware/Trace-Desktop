@@ -1,37 +1,42 @@
 #include "chats/chats_window.h"
 
+#include <iostream>
 #include <QtWidgets/QLabel>
 
 #include "ui_chats_window.h"
+#include "chats/chat_cell.h"
 
 ChatsWindow::ChatsWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::ChatsWindow)
+      , ui(new Ui::ChatsWindow)
 {
     ui->setupUi(this);
-    addItemWithSeparator(ui->list_of_chats, "Saved Messages");
+    for (int i = 0; i < 10; ++i) {
+        add_chat_item("Chat " + QString::number(i), "Last message from chat " + QString::number(i));
+    }
 
     [[maybe_unused]] auto selected_chat_conn = connect(ui->list_of_chats, &QListWidget::itemClicked, this,
                                                        &ChatsWindow::on_chat_selected);
 
-     [[maybe_unused]] auto message_send_conn = connect(ui->message_input, &QLineEdit::returnPressed, this,
-                                                       &ChatsWindow::on_message_send);
+    [[maybe_unused]] auto message_send_conn = connect(ui->message_input, &QLineEdit::returnPressed, this,
+                                                      &ChatsWindow::on_message_send);
 }
 
 ChatsWindow::~ChatsWindow()
 {
+    for (int i = 0; i < ui->list_of_chats->count(); ++i) {
+        delete ui->list_of_chats->item(i);
+    }
     delete ui;
 }
 
-void ChatsWindow::on_chat_selected(const QListWidgetItem *item) const
+void ChatsWindow::on_chat_selected(QListWidgetItem *item) const
 {
     ui->current_chat->clear();
-
-    if (const QString selectedChat = item->text(); selectedChat == "Saved Messages") {
-        ui->current_chat->addItem("Welcome to your saved messages!");
-    } else {
-        ui->current_chat->addItem("Chat with " + selectedChat);
-    }
+    QWidget *widget = ui->list_of_chats->itemWidget(item);
+    const auto *cell = qobject_cast<ChatCell *>(widget);
+    const QString selectedChat = cell->getChatName();
+    ui->current_chat->addItem("Chat with " + selectedChat);
 }
 
 void ChatsWindow::on_message_send() const
@@ -55,17 +60,17 @@ void ChatsWindow::add_message(const QString &message, bool isUserMessage) const
     ui->current_chat->addItem(item);
 }
 
-void ChatsWindow::addItemWithSeparator(QListWidget *listWidget, const QString &text)
+void ChatsWindow::add_item_with_separator(QListWidget *listWidget, const QString &text)
 {
     auto *item = new QListWidgetItem();
-    item->setSizeHint(QSize(200, 50)); // Размер виджета
+    item->setSizeHint(QSize(215, 75));
 
     auto *widget = new QWidget();
-    QVBoxLayout *layout = new QVBoxLayout(widget);
-    QLabel *label = new QLabel(text);
+    auto *layout = new QVBoxLayout(widget);
+    auto *label = new QLabel(text);
     layout->addWidget(label);
 
-    QFrame *separator = new QFrame();
+    auto *separator = new QFrame();
     separator->setFrameShape(QFrame::HLine);
     separator->setFrameShadow(QFrame::Sunken);
     separator->setStyleSheet("background-color: grey;");
@@ -75,4 +80,16 @@ void ChatsWindow::addItemWithSeparator(QListWidget *listWidget, const QString &t
 
     listWidget->addItem(item);
     listWidget->setItemWidget(item, widget);
+}
+
+void ChatsWindow::add_chat_item(const QString &chatName, const QString &lastMessage) const
+{
+    auto *item = new QListWidgetItem(ui->list_of_chats);
+    auto *cell = new ChatCell();
+    cell->setChatName(chatName);
+    cell->setLastMessage(lastMessage);
+    cell->set_line_style_sheet("background-color: grey;");
+    item->setSizeHint(QSize(215, 75));
+    ui->list_of_chats->setItemWidget(item, cell);
+    ui->list_of_chats->updateGeometry();
 }

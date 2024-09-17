@@ -1,32 +1,31 @@
-#ifndef CHATSWINDOW_H
-#define CHATSWINDOW_H
+#ifndef CHATS_WINDOW_H
+#define CHATS_WINDOW_H
 
 #include <QMainWindow>
-#include <QtWidgets/qlistwidget.h>
+#include <QListWidgetItem>
 
 namespace Ui {
 class ChatsWindow;
 }
 
-class ChatsWindow : public QMainWindow
-{
+class ChatsWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    static void addItemWithSeparator(QListWidget *listWidget, const QString &text);
-
     explicit ChatsWindow(QWidget *parent = nullptr);
     ~ChatsWindow() override;
 
-    void on_chat_selected(const QListWidgetItem *item) const;
-
+private slots:
+    void on_chat_selected(QListWidgetItem *item) const;
     void on_message_send() const;
-
-    void add_message(const QString &message, bool isUserMessage) const;
-
 
 private:
     Ui::ChatsWindow *ui;
+
+    void add_message(const QString &message, bool isUserMessage) const;
+
+    static void add_item_with_separator(QListWidget *listWidget, const QString &text);
+    void add_chat_item(const QString &chatName, const QString &lastMessage) const;
 };
 
-#endif // CHATSWINDOW_H
+#endif // CHATS_WINDOW_H

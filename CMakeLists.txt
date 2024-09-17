@@ -35,10 +35,13 @@ set(SOURCES
         src/chats/chats_window.cpp
         include/utils/custom_windows.h
         utils/custom_windows.cpp
+        src/chats/chat_cell.cpp
+        include/chats/chat_cell.h
 )
 
 set(RESOURCE_FILES
         resources.qrc
+        ui_forms/chat_cell.ui
 )
 
 
