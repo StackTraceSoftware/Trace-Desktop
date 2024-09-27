@@ -14,13 +14,13 @@ class ChatsWindow : public QMainWindow {
 public:
     explicit ChatsWindow(QWidget *parent = nullptr);
     ~ChatsWindow() override;
+    Ui::ChatsWindow *ui;
 
 private slots:
     void on_chat_selected(QListWidgetItem *item) const;
     void on_message_send() const;
 
 private:
-    Ui::ChatsWindow *ui;
 
     void add_message(const QString &message, bool isUserMessage) const;
 

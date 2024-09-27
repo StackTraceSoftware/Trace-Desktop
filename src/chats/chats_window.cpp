@@ -1,7 +1,5 @@
 #include "chats/chats_window.h"
 
-#include <iostream>
-#include <QtWidgets/QLabel>
 
 #include "ui_chats_window.h"
 #include "chats/chat_cell.h"
@@ -24,14 +22,21 @@ ChatsWindow::ChatsWindow(QWidget *parent)
 
 ChatsWindow::~ChatsWindow()
 {
-    for (int i = 0; i < ui->list_of_chats->count(); ++i) {
-        delete ui->list_of_chats->item(i);
-    }
     delete ui;
 }
 
 void ChatsWindow::on_chat_selected(QListWidgetItem *item) const
 {
+    auto const *selected_cell = qobject_cast<ChatCell *>(ui->list_of_chats->itemWidget(item));
+    for (int i = 0; i < ui->list_of_chats->count(); ++i) {
+        QListWidgetItem *item_of_list = ui->list_of_chats->item(i);
+        const auto *cell = qobject_cast<ChatCell *>(ui->list_of_chats->itemWidget(item_of_list));
+        if (cell != selected_cell) {
+            cell->ui->frame->setStyleSheet(nullptr);
+        } else {
+            cell->ui->frame->setStyleSheet("background-color: rgb(101, 100, 123);");
+        }
+    }
     ui->current_chat->clear();
     QWidget *widget = ui->list_of_chats->itemWidget(item);
     const auto *cell = qobject_cast<ChatCell *>(widget);
@@ -75,7 +80,6 @@ void ChatsWindow::add_item_with_separator(QListWidget *listWidget, const QString
     separator->setFrameShadow(QFrame::Sunken);
     separator->setStyleSheet("background-color: grey;");
     layout->addWidget(separator);
-
     widget->setLayout(layout);
 
     listWidget->addItem(item);
@@ -88,7 +92,6 @@ void ChatsWindow::add_chat_item(const QString &chatName, const QString &lastMess
     auto *cell = new ChatCell();
     cell->setChatName(chatName);
     cell->setLastMessage(lastMessage);
-    cell->set_line_style_sheet("background-color: grey;");
     item->setSizeHint(QSize(215, 75));
     ui->list_of_chats->setItemWidget(item, cell);
     ui->list_of_chats->updateGeometry();
