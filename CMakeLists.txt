@@ -37,6 +37,8 @@ set(SOURCES
         utils/custom_windows.cpp
         src/chats/chat_cell.cpp
         include/chats/chat_cell.h
+        src/chats/scroll_bar.cpp
+        include/chats/scroll_bar.h
 )
 
 set(RESOURCE_FILES

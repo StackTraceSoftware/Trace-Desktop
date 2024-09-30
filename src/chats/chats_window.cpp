@@ -4,15 +4,18 @@
 #include "ui_chats_window.h"
 #include "chats/chat_cell.h"
 
+#include "chats/scroll_bar.h"
+
 ChatsWindow::ChatsWindow(QWidget *parent)
     : QMainWindow(parent)
       , ui(new Ui::ChatsWindow)
 {
     ui->setupUi(this);
-    for (int i = 0; i < 10; ++i) {
+    auto *scrollBar = new ScrollBar(Qt::Vertical, ui->list_of_chats);
+    ui->list_of_chats->setVerticalScrollBar(scrollBar);
+    for (int i = 0; i < 20; ++i) {
         add_chat_item("Chat " + QString::number(i), "Last message from chat " + QString::number(i));
     }
-
     [[maybe_unused]] auto selected_chat_conn = connect(ui->list_of_chats, &QListWidget::itemClicked, this,
                                                        &ChatsWindow::on_chat_selected);
 
@@ -34,7 +37,7 @@ void ChatsWindow::on_chat_selected(QListWidgetItem *item) const
         if (cell != selected_cell) {
             cell->ui->frame->setStyleSheet(nullptr);
         } else {
-            cell->ui->frame->setStyleSheet("background-color: rgb(101, 100, 123);");
+            cell->ui->frame->setStyleSheet("background-color: rgb(82, 81, 100);");
         }
     }
     ui->current_chat->clear();

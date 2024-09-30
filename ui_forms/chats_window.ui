@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow
+{
+	background-color: rgb(49, 48, 58);
+}</string>
+  </property>
   <widget class="QWidget" name="chats_widget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -85,14 +91,31 @@ background-color: rgb(40, 39, 46);
     </item>
     <item>
      <widget class="QSplitter" name="splitter">
+      <property name="toolTipDuration">
+       <number>-1</number>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSplitter::handle {
+	background-color: rgb(40, 39, 46);
+}</string>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="opaqueResize">
+       <bool>true</bool>
       </property>
       <property name="handleWidth">
        <number>0</number>
       </property>
+      <property name="childrenCollapsible">
+       <bool>true</bool>
+      </property>
       <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="chats_layout">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -101,38 +124,53 @@ background-color: rgb(40, 39, 46);
           <property name="styleSheet">
            <string notr="true">QListWidget
 {
-	background-color: rgb(49, 48, 58)
+	background-color: rgb(49, 48, 58);
 }
 
 QScrollBar:vertical {
-    background: rgb(40, 39, 46);
-    width: 15px;
-    margin: 0px 0px 0px 0px;
+    background: rgb(49, 48, 58);
+	width: 8px;
+	margin: 0px; 
+	border-radius: 7px;
 }
 
 QScrollBar::handle:vertical {
-    background: #A0A0A0;
+    background: grey;
     min-height: 20px;
     border-radius: 7px;
 }
 
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-    background: none;
+    background: rgb(49, 48, 58);
     height: 0px;
 }
 
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-    background: none;
+    background: rgb(49, 48, 58);
 }
 
-
-QListWidget::item:selected {
-    background-color: #A0A0A0;
-    color: #FFFFFF; 
+QScrollArea
+{
+	background-color: rgb(49, 48, 58);
 }
 
-
+QAbstractScrollArea 
+{
+	background-color: rgb(49, 48, 58);
+}
 </string>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="currentRow">
+           <number>-1</number>
           </property>
          </widget>
         </item>
@@ -143,8 +181,33 @@ QListWidget::item:selected {
         <property name="spacing">
          <number>0</number>
         </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="QListWidget" name="current_chat"/>
+         <widget class="QListWidget" name="current_chat">
+          <property name="styleSheet">
+           <string notr="true">QScrollBar
+{
+	background-color: rgb(49, 48, 58);
+}</string>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="currentRow">
+           <number>-1</number>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLineEdit" name="message_input">
