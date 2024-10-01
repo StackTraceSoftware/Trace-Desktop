@@ -51,7 +51,7 @@ void ChatsWindow::onChatSelected(QListWidgetItem* item) const
     QWidget* widget = ui->list_of_chats->itemWidget(item);
     const auto* cell = qobject_cast<ChatCell*>(widget);
     const QString selectedChat = cell->getChatName();
-    ui->current_chat->addItem("Chat with " + selectedChat);
+    ui->recipientName->setText(selectedChat);
 }
 
 void ChatsWindow::onMessageSend() const
