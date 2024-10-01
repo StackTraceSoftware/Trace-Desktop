@@ -8,11 +8,11 @@
 
 namespace warning
 {
-    void show_custom_warning(QWidget *parent, const QString &title, const QString &message);
+    void showCustomWarning(QWidget *parent, const QString &title, const QString &message);
 }
 
 namespace ok
 {
-    void show_custom_ok(QWidget *parent, const QString &title, const QString &message);
+    void showCustomOk(QWidget *parent, const QString &title, const QString &message);
 }
 #endif //CUSTOM_WINDOWS_H

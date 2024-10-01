@@ -16,7 +16,7 @@ RegistrationWindow::RegistrationWindow(QWidget *parent)
     ui->setupUi(this);
 
     [[maybe_unused]] auto log_in_conn = connect(ui->log_in_button, &QPushButton::clicked, this,
-                                                &RegistrationWindow::on_log_in_button_clicked);
+                                                &RegistrationWindow::onLogInButtonClicked);
 }
 
 RegistrationWindow::~RegistrationWindow()
@@ -24,7 +24,7 @@ RegistrationWindow::~RegistrationWindow()
     delete ui;
 }
 
-void RegistrationWindow::on_sign_up_button_clicked()
+void RegistrationWindow::onSignUpButtonClicked()
 {
     try {
         ui->sign_up_button->setText("Loading...");
@@ -32,7 +32,7 @@ void RegistrationWindow::on_sign_up_button_clicked()
         const QString password = ui->password_input_field->text();
 
         if (username.isEmpty() || password.isEmpty()) {
-            warning::show_custom_warning(this, "Registration Error", "Please fill in all fields.");
+            warning::showCustomWarning(this, "Registration Error", "Please fill in all fields.");
             ui->sign_up_button->setText("Sign Up");
         } else {
             QJsonObject json;
@@ -42,7 +42,7 @@ void RegistrationWindow::on_sign_up_button_clicked()
             const QJsonDocument jsonDoc(json);
             const QByteArray jsonData = jsonDoc.toJson();
 
-            const QString server_url = config::get_server_url("config.ini");
+            const QString server_url = config::getServerUrl("config.ini");
 
             const QUrl url(server_url + "/api/v1/create");
             QNetworkRequest request(url);
@@ -53,11 +53,11 @@ void RegistrationWindow::on_sign_up_button_clicked()
                 const auto chat_window = new ChatsWindow();
                 chat_window->show();
             } else {
-                warning::show_custom_warning(this, "Registration Error", "Something went wrong.");
+                warning::showCustomWarning(this, "Registration Error", "Something went wrong.");
             }
         }
     } catch (const std::exception &e) {
-        warning::show_custom_warning(this, "Registration Error", e.what());
+        warning::showCustomWarning(this, "Registration Error", e.what());
         ui->sign_up_button->setText("Sign Up");
     }
 }
@@ -73,7 +73,7 @@ void RegistrationWindow::onNetworkReply(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-void RegistrationWindow::on_log_in_button_clicked()
+void RegistrationWindow::onLogInButtonClicked()
 {
-    emit log_in_button_clicked();
+    emit logInButtonClicked();
 }

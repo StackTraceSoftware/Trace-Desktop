@@ -9,7 +9,7 @@
 #include <QtCore/QString>
 #include <QFile>
 
-boost::property_tree::ptree config::load_config(const std::string &filename)
+boost::property_tree::ptree config::loadConfig(const std::string &filename)
 {
     boost::property_tree::ptree root;
     try {
@@ -20,15 +20,15 @@ boost::property_tree::ptree config::load_config(const std::string &filename)
     return root;
 }
 
-QString config::get_server_url(const std::string &filename)
+QString config::getServerUrl(const std::string &filename)
 {
-    const boost::property_tree::ptree pt = load_config(filename);
+    const boost::property_tree::ptree pt = loadConfig(filename);
     const auto server_url = pt.get<std::string>("Server.URL");
     return QString::fromStdString(server_url);
 }
 
 
-void config::load_styles(QMessageBox &message_box, const std::string &filename) {
+void config::loadStyles(QMessageBox &message_box, const std::string &filename) {
     const std::string file_path = "resources/styles/" + filename;
     if (QFile file(QString::fromStdString(file_path)); file.open(QFile::ReadOnly)) {
         const QString style_sheet = file.readAll();

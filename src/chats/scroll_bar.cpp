@@ -7,42 +7,42 @@
 ScrollBar::ScrollBar(Qt::Orientation orientation, QWidget *parent)
 {
     setStyleSheet("QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: rgb(49, 48, 58);}");
-    auto_hide_timer = new QTimer(this);
-    connect(auto_hide_timer, &QTimer::timeout, this, &ScrollBar::hide_scroll_bar);
-    auto_hide_timer->setSingleShot(true);
+    autoHideTimer = new QTimer(this);
+    connect(autoHideTimer, &QTimer::timeout, this, &ScrollBar::hideScrollBar);
+    autoHideTimer->setSingleShot(true);
 
-    opacity_effect = new QGraphicsOpacityEffect(this);
-    this->setGraphicsEffect(opacity_effect);
+    opacityEffect = new QGraphicsOpacityEffect(this);
+    this->setGraphicsEffect(opacityEffect);
 
-    fade_animation = new QPropertyAnimation(opacity_effect, "opacity");
-    fade_animation->setDuration(500);
-    fade_animation->setStartValue(1.0);
-    fade_animation->setEndValue(0.0);
+    fadeAnimation = new QPropertyAnimation(opacityEffect, "opacity");
+    fadeAnimation->setDuration(500);
+    fadeAnimation->setStartValue(1.0);
+    fadeAnimation->setEndValue(0.0);
 }
 
-void ScrollBar::show_scroll_bar_temporarily()
+void ScrollBar::showScrollBarTemporarily() const
 {
-    if (auto_hide_timer->isActive()) {
-        auto_hide_timer->stop();
+    if (autoHideTimer->isActive()) {
+        autoHideTimer->stop();
     }
-    fade_animation->stop();
-    opacity_effect->setOpacity(1.0);
-    auto_hide_timer->start(2000);
+    fadeAnimation->stop();
+    opacityEffect->setOpacity(1.0);
+    autoHideTimer->start(2000);
 }
 
 void ScrollBar::wheelEvent(QWheelEvent *event)
 {
-    show_scroll_bar_temporarily();
+    showScrollBarTemporarily();
     QScrollBar::wheelEvent(event);
 }
 
-void ScrollBar::hide_scroll_bar()
+void ScrollBar::hideScrollBar()
 {
-    fade_animation->start();
+    fadeAnimation->start();
 }
 
 void ScrollBar::sliderChange(const SliderChange change)
 {
-    show_scroll_bar_temporarily();
+    showScrollBarTemporarily();
     QScrollBar::sliderChange(change);
 }

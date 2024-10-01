@@ -11,9 +11,9 @@
 
 namespace config
 {
-    boost::property_tree::ptree load_config(const std::string &filename);
-    QString get_server_url(const std::string &filename);
-    void load_styles(QMessageBox &message_box, const std::string &filename); //TODO move this method to another util file
+    boost::property_tree::ptree loadConfig(const std::string &filename);
+    QString getServerUrl(const std::string &filename);
+    void loadStyles(QMessageBox &message_box, const std::string &filename); //TODO move this method to another util file
 }
 
 #endif //CONFIG_UTILS_H

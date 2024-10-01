@@ -6,10 +6,10 @@ Auth::Auth()
 {
     log_in_window = new LogInWindow();
     registration_window = new RegistrationWindow();
-    [[maybe_unused]] auto show_reg_window = connect(log_in_window, &LogInWindow::sign_up_button_clicked, this,
+    [[maybe_unused]] auto show_reg_window = connect(log_in_window, &LogInWindow::signUpButtonClicked, this,
                                                     &Auth::show_registration_window);
     [[maybe_unused]] auto show_registration_window = connect(registration_window,
-                                                             &RegistrationWindow::log_in_button_clicked, this,
+                                                             &RegistrationWindow::logInButtonClicked, this,
                                                              &Auth::show_log_in_window);
 }
 

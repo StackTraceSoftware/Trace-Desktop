@@ -15,18 +15,18 @@ class ScrollBar final : public QScrollBar
 public:
     explicit ScrollBar(Qt::Orientation orientation, QWidget *parent = nullptr);
 
-    void show_scroll_bar_temporarily();
+    void showScrollBarTemporarily() const;
 
 protected:
     void wheelEvent(QWheelEvent *event) override;
-    void hide_scroll_bar();
+    void hideScrollBar();
 
     void sliderChange(SliderChange change) override;
 
 private:
-    QTimer *auto_hide_timer;
-    QGraphicsOpacityEffect *opacity_effect;
-    QPropertyAnimation *fade_animation;
+    QTimer *autoHideTimer;
+    QGraphicsOpacityEffect *opacityEffect;
+    QPropertyAnimation *fadeAnimation;
 };
 
 #endif //SCROLL_BAR_H

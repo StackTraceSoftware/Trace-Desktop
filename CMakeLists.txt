@@ -5,7 +5,7 @@ project(Trace-Desktop VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS Widgets Network REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Network WebSockets REQUIRED)
 find_package(Boost 1.86.0 REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
@@ -39,6 +39,8 @@ set(SOURCES
         include/chats/chat_cell.h
         src/chats/scroll_bar.cpp
         include/chats/scroll_bar.h
+        include/chats/stomp_client.h
+        src/chats/stomp_client.cpp
 )
 
 set(RESOURCE_FILES
@@ -54,7 +56,7 @@ add_executable(
         ${RESOURCE_FILES}
 )
 
-target_link_libraries(${PROJECT_NAME} ${Boost_INCLUDE_DIRS} Qt6::Widgets Qt6::Network)
+target_link_libraries(${PROJECT_NAME} ${Boost_INCLUDE_DIRS} Qt6::Widgets Qt6::Network Qt6::WebSockets)
 
 target_sources(Trace-Desktop
         PRIVATE

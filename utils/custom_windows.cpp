@@ -5,14 +5,14 @@
 #include <QtWidgets/QPushButton>
 #include "utils/config_utils.h"
 
-void warning::show_custom_warning(QWidget *parent, const QString &title, const QString &message)
+void warning::showCustomWarning(QWidget *parent, const QString &title, const QString &message)
 {
     QMessageBox messageBox(parent);
     messageBox.setWindowTitle(title);
     messageBox.setText(message);
 
     messageBox.setIcon(QMessageBox::Warning);
-    config::load_styles(messageBox, "custom_error.qss");
+    config::loadStyles(messageBox, "custom_error.qss");
 
     QPushButton *ok_button = messageBox.addButton(QMessageBox::Ok);
     ok_button->setFixedSize(70, 40);
@@ -22,14 +22,14 @@ void warning::show_custom_warning(QWidget *parent, const QString &title, const Q
     messageBox.exec();
 }
 
-void ok::show_custom_ok(QWidget *parent, const QString &title, const QString &message)
+void ok::showCustomOk(QWidget *parent, const QString &title, const QString &message)
 {
     QMessageBox messageBox(parent);
     messageBox.setWindowTitle(title);
     messageBox.setText(message);
 
     messageBox.setIcon(QMessageBox::Information);
-    config::load_styles(messageBox, "custom_error.qss");
+    config::loadStyles(messageBox, "custom_error.qss");
 
     QPushButton *ok_button = messageBox.addButton(QMessageBox::Ok);
     ok_button->setFixedSize(70, 40);

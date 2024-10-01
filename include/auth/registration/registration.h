@@ -21,11 +21,11 @@ public:
     ~RegistrationWindow() override;
 
 signals:
-    void log_in_button_clicked();
+    void logInButtonClicked();
 
 private slots:
-    void on_sign_up_button_clicked();
-    void on_log_in_button_clicked();
+    void onSignUpButtonClicked();
+    void onLogInButtonClicked();
 
     static void onNetworkReply(QNetworkReply *reply);
 

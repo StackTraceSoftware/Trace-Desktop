@@ -5,6 +5,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>
 
+#include "chats/stomp_client.h"
+
 QT_BEGIN_NAMESPACE
 
 namespace Ui
@@ -24,16 +26,18 @@ public:
     ~LogInWindow() override;
 
 signals:
-    void sign_up_button_clicked();
+    void signUpButtonClicked();
+    void connectWebSocket();
 
 private slots:
-    void on_log_in_button_clicked();
+    void onLogInButtonClicked();
 
-    void on_sign_up_button_clicked();
+    void onSignUpButtonClicked();
 
 private:
     Ui::LogInWindow *ui;
     QNetworkAccessManager *networkManager;
+    StompClient *m_stompClient;
 };
 
 #endif // LOG_IN_H
