@@ -11,7 +11,10 @@ StompClient::StompClient(QObject* parent)
 
 void StompClient::sendFrame(const QString& frame)
 {
-    m_webSocket.sendTextMessage(frame);
+    QByteArray byteArray = frame.toUtf8();
+    byteArray.resize(byteArray.size() + 1);
+    byteArray[byteArray.size() - 1] = '\0';
+    m_webSocket.sendTextMessage(byteArray);
 }
 
 void StompClient::onConnected()
@@ -47,23 +50,25 @@ void StompClient::sendMessage(const QString& message)
     const QString subscribeMessage = "SUBSCRIBE\n"
         "id:sub-0\n"
         "destination:/user/your_username/queue/messages\n\n";
-    m_webSocket.sendTextMessage(subscribeMessage);
+
+    sendFrame(subscribeMessage);
 
     QJsonObject chatMessage;
     chatMessage["senderId"] = username;
     chatMessage["content"] = message;
     chatMessage["recipientId"] = "your_username1";
-    QDateTime currentTime = QDateTime::currentDateTime();
+    const QDateTime currentTime = QDateTime::currentDateTime();
     chatMessage["timestamp"] = currentTime.toString(Qt::ISODate);
 
-    QJsonDocument doc(chatMessage);
+    const QJsonDocument doc(chatMessage);
     const QString jsonString = doc.toJson(QJsonDocument::Compact);
     qDebug() << "JSON to send:" << jsonString;
 
     const QString frame = QString("SEND\n"
             "destination:/app/chat\n"
-            "content-type:application/json\n"
+            "content-type:application/json\n\n"
             "%1\n\n")
         .arg(jsonString);
+
     sendFrame(frame);
 }
