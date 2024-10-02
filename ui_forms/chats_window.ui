@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>812</width>
-    <height>631</height>
+    <width>827</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Trace</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow
@@ -29,7 +29,7 @@
    <property name="styleSheet">
     <string notr="true">QWidget
 {
-background-color: rgb(40, 39, 46);
+background-color: rgb(49, 48, 58);
 }</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -49,42 +49,85 @@ background-color: rgb(40, 39, 46);
      <number>0</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="main_layout">
+     <layout class="QVBoxLayout" name="leftButtonLayout">
       <property name="spacing">
        <number>0</number>
       </property>
-      <item alignment="Qt::AlignmentFlag::AlignTop">
-       <widget class="QPushButton" name="menu_push_button">
+      <item>
+       <widget class="QFrame" name="leftFrame">
         <property name="minimumSize">
          <size>
-          <width>60</width>
-          <height>60</height>
+          <width>50</width>
+          <height>0</height>
          </size>
         </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton
+         <string notr="true">QFrame
+{
+	background-color: rgb(40, 39, 46);
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>1</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>1</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignmentFlag::AlignTop">
+          <widget class="QPushButton" name="menu_push_button">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
 {
 	border: none;
 	background-color: rgb(40, 39, 46);
 	color: rgb(40, 39, 45);
+	margin-left: 0px;
 }</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../resources.qrc">
-          <normaloff>:/icons/resources/icons/menu-btn.svg</normaloff>:/icons/resources/icons/menu-btn.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>25</width>
-          <height>30</height>
-         </size>
-        </property>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/resources/icons/menu-btn.svg</normaloff>:/icons/resources/icons/menu-btn.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -140,6 +183,21 @@ background-color: rgb(40, 39, 46);
            <enum>QFrame::Shadow::Raised</enum>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>-1</number>
+           </property>
+           <property name="leftMargin">
+            <number>12</number>
+           </property>
+           <property name="topMargin">
+            <number>12</number>
+           </property>
+           <property name="rightMargin">
+            <number>12</number>
+           </property>
+           <property name="bottomMargin">
+            <number>8</number>
+           </property>
            <item>
             <widget class="QLabel" name="label">
              <property name="font">
@@ -199,27 +257,22 @@ background-color: rgb(40, 39, 46);
 	background-color: rgb(49, 48, 58);
 }
 
-QScrollBar:vertical {
-    background: rgb(49, 48, 58);
+QScrollBar:vertical
+{
 	width: 8px;
-	margin: 0px; 
-	border-radius: 7px;
 }
 
-QScrollBar::handle:vertical {
-    background: grey;
-    min-height: 20px;
-    border-radius: 7px;
+QScrollBar::handle:vertical
+{
+	background: grey;
+	border-radius : 4px;
 }
 
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-    background: rgb(49, 48, 58);
-    height: 0px;
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
+{
+	background: rgb(49, 48, 58);
 }
 
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-    background: rgb(49, 48, 58);
-}
 
 QScrollArea
 {
@@ -236,10 +289,16 @@ QAbstractScrollArea
            <number>0</number>
           </property>
           <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+           <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored</enum>
+          </property>
+          <property name="autoScrollMargin">
+           <number>16</number>
           </property>
           <property name="currentRow">
            <number>-1</number>
@@ -302,6 +361,11 @@ QAbstractScrollArea
            <string notr="true">QScrollBar
 {
 	background-color: rgb(49, 48, 58);
+}
+
+QListWidget
+{
+	background-color: rgb(40, 39, 46);
 }</string>
           </property>
           <property name="lineWidth">
@@ -382,7 +446,7 @@ QAbstractScrollArea
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>812</width>
+     <width>827</width>
      <height>24</height>
     </rect>
    </property>

@@ -66,18 +66,18 @@ void ChatsWindow::onMessageSend() const
 
 void ChatsWindow::addMessage(const QString& message, bool isUserMessage) const
 {
-    auto* item = new QListWidgetItem(message);
+    QListWidgetItem item(message);
 
     if (isUserMessage)
     {
-        item->setTextAlignment(Qt::AlignRight);
+        item.setTextAlignment(Qt::AlignRight);
     }
     else
     {
-        item->setTextAlignment(Qt::AlignLeft);
+        item.setTextAlignment(Qt::AlignLeft);
     }
 
-    ui->current_chat->addItem(item);
+    ui->current_chat->addItem(new QListWidgetItem(item));
 }
 
 void ChatsWindow::addChatItem(const QString& chatName, const QString& lastMessage) const

@@ -6,7 +6,6 @@
 
 ScrollBar::ScrollBar(Qt::Orientation orientation, QWidget *parent)
 {
-    setStyleSheet("QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background: rgb(49, 48, 58);}");
     autoHideTimer = new QTimer(this);
     connect(autoHideTimer, &QTimer::timeout, this, &ScrollBar::hideScrollBar);
     autoHideTimer->setSingleShot(true);
